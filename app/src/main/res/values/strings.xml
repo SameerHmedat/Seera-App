@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Seera Group</string>
+    <string name="teskilat">teskilat</string>
+    <string name="movie_name">movie_name</string>
+    <string name="leorm_ipsom">OverView</string>
+    <string name="rating">rating</string>
+    <string name="release_date">Release Date : </string>
+    <string name="_8_3">8.3</string>
+    <string name="_10192_votes">10192 votes</string>
+    <string name="language">Language</string>
+    <string name="en">En</string>
+    <string name="release_date___">Release Date</string>
+    <string name="_1977_05_23">1977-05-23</string>
+    <string name="message_error">Please check your internet connection</string>
+    <string name="image">image</string>
+</resources>
