@@ -64,7 +64,15 @@ class MainViewModel : ViewModel() {
                 popularLiveData.postValue(
                     Result.Success(MoviesModel(popularMutableLiveData = popularResponse.body()!!.movies))
                 )
-            } catch (ex: Exception) { }
+            } catch (ex: Exception) {
+                popularLiveData.postValue(
+                    Result.Failure(
+                    Throwable(
+                        "Error sorry"
+                    )
+                    )
+                )
+            }
         }
     }
 
@@ -72,11 +80,20 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             topRatedLiveData.postValue(Result.Loading)
             try {
-                val topRatedResponse = MovieApiService.getInstance().getMovieTopRatedList(topRatedPage)
+                val topRatedResponse =
+                    MovieApiService.getInstance().getMovieTopRatedList(topRatedPage)
                 topRatedLiveData.postValue(
                     Result.Success(MoviesModel(topRatedMutableLiveData = topRatedResponse.body()!!.movies))
                 )
-            } catch (ex: Exception) { }
+            } catch (ex: Exception) {
+                topRatedLiveData.postValue(
+                    Result.Failure(
+                    Throwable(
+                        "Error sorry"
+                    )
+                )
+               )
+            }
         }
     }
 
@@ -84,14 +101,22 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             upcomingLiveData.postValue(Result.Loading)
             try {
-                val upcomingResponse = MovieApiService.getInstance().getMovieUpcomingList(upcomingPage)
+                val upcomingResponse =
+                    MovieApiService.getInstance().getMovieUpcomingList(upcomingPage)
                 upcomingLiveData.postValue(
                     Result.Success(MoviesModel(upcomingMutableLiveData = upcomingResponse.body()!!.movies))
                 )
-            } catch (ex: Exception) { }
+            } catch (ex: Exception) {
+                upcomingLiveData.postValue(
+                    Result.Failure(
+                    Throwable(
+                        "Error sorry"
+                    )
+                    )
+                )
+            }
         }
     }
-
 
 
 }

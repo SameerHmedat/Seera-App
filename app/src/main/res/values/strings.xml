@@ -13,4 +13,19 @@
     <string name="_1977_05_23">1977-05-23</string>
     <string name="message_error">Please check your internet connection</string>
     <string name="image">image</string>
+    <string name="Please_wait">Please wait</string>
+
+    <string name="network">Network Error please connect to Internet and try again</string>
+    <string name="splash_screen">Splash Screen</string>
+    <string name="error_loading_new">Error Loading</string>
+    <string name="show_progress" translatable="false">Show progress</string>
+    <string name="show_content" translatable="false">Show content</string>
+    <string name="show_error" translatable="false">Show error</string>
+    <string name="show_empty" translatable="false">Show empty</string>
+    <string name="text_sample" translatable="false">Sample Text</string>
+    <string name="sample_normal" translatable="false">Normal Sample</string>
+    <string name="sample_recycler_view" translatable="false">RecyclerView Sample</string>
+    <string name="try_again" translatable="false">Try Again</string>
+    <string name="empty">Content not found</string>
+
 </resources>
