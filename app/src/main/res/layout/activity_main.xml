@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -23,12 +22,11 @@
         app:ev_error_textColor="@color/white"
         app:ev_error_title="@string/error_connection_title"
         app:ev_error_titleTextColor="@color/white"
-
-        app:ev_loading_backgroundColor="@color/white"
+        app:ev_loading_backgroundColor="@color/black"
         app:ev_loading_drawableTint="#EF1A1A"
         app:ev_loading_drawable="@drawable/ic_sentiment_satisfied"
         app:ev_loading_text="@string/Please_wait"
-        app:ev_loading_textColor="@color/black"
+        app:ev_loading_textColor="#EF1A1A"
         app:ev_loading_type="circular"
         app:ev_transition="auto">
 
@@ -48,136 +46,14 @@
                 app:title="CATALOG"
                 app:titleTextColor="@color/white" />
 
-
-            <androidx.core.widget.NestedScrollView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewFull"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/black">
+                android:background="@color/black"
+                />
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/movieslayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/black"
-                    tools:context=".MainActivity">
-
-
-                    <TextView
-                        android:id="@+id/txtPopular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="20dp"
-                        android:text="Popular"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvPopular"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/white"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/txtPopular"
-                        app:layout_constraintTop_toBottomOf="@+id/txtPopular" />
-
-
-                    <ProgressBar
-                        android:id="@+id/progress_circular_popular"
-                        android:layout_width="136dp"
-                        android:layout_height="145dp"
-                        android:layout_marginTop="28dp"
-                        android:background="@color/black"
-                        android:theme="@style/ProgressTheme"
-                        android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.539"
-                        app:layout_constraintStart_toStartOf="@+id/txtPopular"
-                        app:layout_constraintTop_toBottomOf="@+id/txtPopular" />
-
-                    <TextView
-                        android:id="@+id/txtTopRated"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="Top Rated"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@+id/txtPopular"
-                        app:layout_constraintTop_toBottomOf="@id/rvPopular" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvTopRated"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/white"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/txtPopular"
-                        app:layout_constraintTop_toBottomOf="@+id/txtTopRated" />
-
-                    <ProgressBar
-                        android:id="@+id/progress_circular_topRated"
-                        android:layout_width="136dp"
-                        android:layout_height="145dp"
-                        android:layout_marginTop="28dp"
-                        android:background="@color/black"
-                        android:theme="@style/ProgressTheme"
-                        android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.539"
-                        app:layout_constraintStart_toStartOf="@+id/txtTopRated"
-                        app:layout_constraintTop_toBottomOf="@+id/txtTopRated" />
-
-                    <TextView
-                        android:id="@+id/txtUpcoming"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="Upcoming"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@+id/txtPopular"
-                        app:layout_constraintTop_toBottomOf="@id/rvTopRated" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvUpcoming"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/white"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/txtPopular"
-                        app:layout_constraintTop_toBottomOf="@+id/txtUpcoming" />
-
-
-                    <ProgressBar
-                        android:id="@+id/progress_circular_upcoming"
-                        android:layout_width="136dp"
-                        android:layout_height="145dp"
-                        android:layout_marginTop="28dp"
-                        android:background="@color/black"
-                        android:theme="@style/ProgressTheme"
-                        android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.539"
-                        app:layout_constraintStart_toStartOf="@+id/txtUpcoming"
-                        app:layout_constraintTop_toBottomOf="@+id/txtUpcoming" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.core.widget.NestedScrollView>
         </LinearLayout>
     </com.santalu.emptyview.EmptyView>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -40,14 +40,17 @@ class MovieAdapter (private val movies:ArrayList<Movie>)
         return movies.size
     }
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(popularMutableLiveData: List<Movie>) {
-        movies.addAll(popularMutableLiveData)
+    fun updateData(newMovies: List<Movie>) {
+        movies.addAll(newMovies)
         notifyDataSetChanged()
     }
 
     inner class MovieViewHolder(view:View):RecyclerView.ViewHolder(view){
         fun bindMovie(movie: Movie){
-            itemView.img_movie.loadImage(IMAGE_BASE+movie.poster)
+            if(movie.poster==null){
+                itemView.img_movie.loadImage(R.drawable.comingsoon)
+            }
+            else{itemView.img_movie.loadImage(IMAGE_BASE+movie.poster)}
         }
         init {
             itemView.img_movie.setOnClickListener {

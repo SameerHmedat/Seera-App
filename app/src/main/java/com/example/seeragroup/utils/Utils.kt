@@ -13,3 +13,9 @@ fun ImageView.loadImage(url: String) {
         .load(url)
         .into(this)
 }
+
+fun ImageView.loadImage(link: Int) {
+    Glide.with(this)
+        .load(link)
+        .into(this)
+}

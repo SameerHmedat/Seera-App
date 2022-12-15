@@ -5,12 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black">
     <TextView
-        android:id="@+id/txtUpcoming"
+        android:id="@+id/txtRevenue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="Upcoming"
+        android:text="Revenue"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -18,19 +18,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvUpcoming"
+        android:id="@+id/rvRevenue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@color/white"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/txtUpcoming"
-        app:layout_constraintTop_toBottomOf="@+id/txtUpcoming" />
+        app:layout_constraintStart_toStartOf="@+id/txtRevenue"
+        app:layout_constraintTop_toBottomOf="@+id/txtRevenue" />
 
 
     <ProgressBar
-        android:id="@+id/progress_circular_upcoming"
+        android:id="@+id/progress_circular_revenue"
         android:layout_width="136dp"
         android:layout_height="145dp"
         android:layout_marginTop="28dp"
@@ -39,8 +39,8 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.539"
-        app:layout_constraintStart_toStartOf="@+id/txtUpcoming"
-        app:layout_constraintTop_toBottomOf="@+id/txtUpcoming" />
+        app:layout_constraintStart_toStartOf="@+id/txtRevenue"
+        app:layout_constraintTop_toBottomOf="@+id/txtRevenue" />
 
 
 
