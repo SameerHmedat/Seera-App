@@ -54,9 +54,9 @@ class LargeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         }
                     }
                     if (!viewModel.loadingPopular && (totalItemCount - visibleItemCount ) <= (firstVisibleItem + 9)) {
-                        Log.d("waled", (viewModel.popularPage).toString())
+                        Log.d("popular ", (viewModel.popularPage).toString())
                         viewModel.getNewPopularMovies(popularPage = viewModel.popularPage++)
-                        Log.d("waled", popularLayoutManager.itemCount.toString())
+                        Log.d("popular ", popularLayoutManager.itemCount.toString())
                         viewModel.loadingPopular = true
                     }
                 }
@@ -144,9 +144,9 @@ class LargeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         }
                     }
                     if (!viewModel.loadingTopRated && (totalItemCount - visibleItemCount ) <= (firstVisibleItem + 9)) {
-                        Log.d("waled", (viewModel.topRatedPage).toString())
+                        Log.d("topRated", (viewModel.topRatedPage).toString())
                         viewModel.getNewTopRatedMovies(topRatedPage = viewModel.topRatedPage++)
-                        Log.d("waled", topRatedLayoutManager.itemCount.toString())
+                        Log.d("topRated", topRatedLayoutManager.itemCount.toString())
                         viewModel.loadingTopRated = true
                     }
                 }
@@ -216,9 +216,9 @@ class LargeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         }
                     }
                     if (!viewModel.loadingRevenue && (totalItemCount - visibleItemCount ) <= (firstVisibleItem + 9)) {
-                        Log.d("waled", (viewModel.revenuePage).toString())
+                        Log.d("revenue ", (viewModel.revenuePage).toString())
                         viewModel.getNewRevenueMovies(revenuePage = viewModel.revenuePage++)
-                        Log.d("waled", revenueLayoutManager.itemCount.toString())
+                        Log.d("revenue ", revenueLayoutManager.itemCount.toString())
                         viewModel.loadingRevenue = true
                     }
                 }
