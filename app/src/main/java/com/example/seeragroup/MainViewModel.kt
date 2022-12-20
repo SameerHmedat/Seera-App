@@ -29,6 +29,18 @@ class MainViewModel : ViewModel() {
     var loadingRevenue = true
     var previousTotalRevenue = 0
 
+    fun resetScrolling() {
+        loadingPopular = true
+        previousTotalPopular = 0
+        popularPage = 2
+        loadingTopRated = true
+        previousTotalTopRated = 0
+        topRatedPage = 2
+        loadingRevenue = true
+        previousTotalRevenue = 0
+        revenuePage = 2
+    }
+
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         Log.d("Exception handled:", throwable.localizedMessage as String)
@@ -56,12 +68,11 @@ class MainViewModel : ViewModel() {
                         )
                     )
                 )
-
             } catch (e: Exception) {
                 moviesLiveData.postValue(
                     Result.Failure(
                         Throwable(
-                            "Error sorry"
+                            "Error when request all Movies"
                         )
                     )
                 )
@@ -81,7 +92,7 @@ class MainViewModel : ViewModel() {
                 popularLiveData.postValue(
                     Result.Failure(
                         Throwable(
-                            "Error sorry"
+                            "Error when request Popular Movies"
                         )
                     )
                 )
@@ -101,7 +112,7 @@ class MainViewModel : ViewModel() {
                 topRatedLiveData.postValue(
                     Result.Failure(
                         Throwable(
-                            "Error sorry"
+                            "Error when request TopRated Movies"
                         )
                     )
                 )
@@ -121,7 +132,7 @@ class MainViewModel : ViewModel() {
                 revenueLiveData.postValue(
                     Result.Failure(
                         Throwable(
-                            "Error sorry"
+                            "Error when request Revenue Movies"
                         )
                     )
                 )

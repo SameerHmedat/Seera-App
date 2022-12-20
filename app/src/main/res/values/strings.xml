@@ -10,7 +10,7 @@
     <string name="language">Language</string>
     <string name="en">En</string>
     <string name="release_date___">Release Date</string>
-    <string name="_1977_05_23">1977-05-23</string>
+    <string name="_1977_05_23">1977–05–23</string>
     <string name="message_error">Please check your internet connection</string>
     <string name="image">image</string>
     <string name="Please_wait">Please wait</string>
@@ -27,5 +27,8 @@
     <string name="sample_recycler_view" translatable="false">RecyclerView Sample</string>
     <string name="try_again" translatable="false">Try Again</string>
     <string name="empty">Content not found</string>
+    <string name="popular">Popular</string>
+    <string name="revenue">Revenue</string>
+    <string name="top_rated">Top Rated</string>
 
 </resources>

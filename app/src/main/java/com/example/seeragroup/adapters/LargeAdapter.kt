@@ -54,7 +54,7 @@ class LargeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         }
                     }
                     if (!viewModel.loadingPopular && (totalItemCount - visibleItemCount ) <= (firstVisibleItem + 9)) {
-                        Log.d("popular ", (viewModel.popularPage).toString())
+                        Log.d("popular ", (viewModel.popularPage-1).toString())
                         viewModel.getNewPopularMovies(popularPage = viewModel.popularPage++)
                         Log.d("popular ", popularLayoutManager.itemCount.toString())
                         viewModel.loadingPopular = true
@@ -65,7 +65,6 @@ class LargeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         }
 
-        @SuppressLint("NotifyDataSetChanged")
         fun bind(movies: List<Movie>) {
 
             popularAdapter = MovieAdapter(ArrayList(movies))
@@ -75,7 +74,6 @@ class LargeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             popularAdapter?.onItemClick = {
                 onClick?.invoke(it)
             }
-
         }
 
         private fun observePopularLiveData() {
@@ -92,25 +90,13 @@ class LargeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     is com.example.seeragroup.Result.Failure -> {
                         itemBinding.progressCircularPopular.visible(false)
                         emptyError?.invoke()
-                        resetValuesScrolling(viewModel)
+                        viewModel.loadingPopular = true
+                        viewModel.previousTotalPopular = 0
+                        viewModel.popularPage --
                     }
                 }
             }
         }
-    }
-
-    private fun resetValuesScrolling(viewModel: MainViewModel) {
-        viewModel.loadingPopular = true
-        viewModel.previousTotalPopular = 0
-        viewModel.popularPage = 2
-
-        viewModel.loadingTopRated = true
-        viewModel.previousTotalTopRated = 0
-        viewModel.topRatedPage = 2
-
-        viewModel.loadingRevenue = true
-        viewModel.previousTotalRevenue = 0
-        viewModel.revenuePage = 2
     }
 
 
@@ -144,7 +130,7 @@ class LargeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         }
                     }
                     if (!viewModel.loadingTopRated && (totalItemCount - visibleItemCount ) <= (firstVisibleItem + 9)) {
-                        Log.d("topRated", (viewModel.topRatedPage).toString())
+                        Log.d("topRated", (viewModel.topRatedPage-1).toString())
                         viewModel.getNewTopRatedMovies(topRatedPage = viewModel.topRatedPage++)
                         Log.d("topRated", topRatedLayoutManager.itemCount.toString())
                         viewModel.loadingTopRated = true
@@ -179,7 +165,9 @@ class LargeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     is com.example.seeragroup.Result.Failure -> {
                         itemBinding.progressCircularTopRated.visible(false)
                         emptyError?.invoke()
-                        resetValuesScrolling(viewModel)
+                        viewModel.loadingTopRated = true
+                        viewModel.previousTotalTopRated = 0
+                        viewModel.topRatedPage --
                     }
                 }
             }
@@ -216,7 +204,7 @@ class LargeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         }
                     }
                     if (!viewModel.loadingRevenue && (totalItemCount - visibleItemCount ) <= (firstVisibleItem + 9)) {
-                        Log.d("revenue ", (viewModel.revenuePage).toString())
+                        Log.d("revenue ", (viewModel.revenuePage-1).toString())
                         viewModel.getNewRevenueMovies(revenuePage = viewModel.revenuePage++)
                         Log.d("revenue ", revenueLayoutManager.itemCount.toString())
                         viewModel.loadingRevenue = true
@@ -250,7 +238,9 @@ class LargeAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     is com.example.seeragroup.Result.Failure -> {
                         itemBinding.progressCircularRevenue.visible(false)
                         emptyError?.invoke()
-                        resetValuesScrolling(viewModel)
+                        viewModel.loadingRevenue = true
+                        viewModel.previousTotalRevenue = 0
+                        viewModel.revenuePage --
                     }
                 }
             }

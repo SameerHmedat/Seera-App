@@ -12,7 +12,7 @@
         android:id="@+id/txtTopRated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Top Rated"
+        android:text="@string/top_rated"
         android:textColor="@color/white"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
