@@ -12,7 +12,7 @@ import com.example.seeragroup.utils.loadImage
 import kotlinx.android.synthetic.main.movie_item_row.view.*
 
 @Suppress("DEPRECATION")
-class MovieAdapter (private val movies:ArrayList<Movie>)
+class MovieAdapter ( val movies:ArrayList<Movie>)
     :RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
 
     var onItemClick: ((Movie) -> Unit)? = null

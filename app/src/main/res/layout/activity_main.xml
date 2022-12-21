@@ -47,7 +47,7 @@
                 app:titleTextColor="@color/white" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewFull"
+                android:id="@+id/rvFull"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/black"

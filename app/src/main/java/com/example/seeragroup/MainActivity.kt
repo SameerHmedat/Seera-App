@@ -3,6 +3,7 @@ package com.example.seeragroup
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,10 +29,9 @@ class MainActivity : AppCompatActivity() {
         refresh_layout.setOnRefreshListener(this@MainActivity::tryAgainButton)
 
 
-        recyclerViewFull.apply {
+        rvFull.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = largeAdapter
-
         }
 
         empty_view.error().setOnClickListener {
@@ -50,10 +50,10 @@ class MainActivity : AppCompatActivity() {
                 is Result.Success -> {
                     empty_view.content().show()
                     largeAdapter.moviesList.clear()
-                    largeAdapter.moviesList.add(result.movies.popularMutableLiveData)
-                    largeAdapter.moviesList.add(result.movies.topRatedMutableLiveData)
-                    largeAdapter.moviesList.add(result.movies.revenueMutableLiveData)
-                    largeAdapter.notifyItemRangeChanged(0,3)
+                    largeAdapter.moviesList.add(Model(result.movies.popularMutableLiveData as ArrayList<Movie>,"Popular"))
+                    largeAdapter.moviesList.add(Model(result.movies.topRatedMutableLiveData as ArrayList<Movie>,"Top Rated"))
+                    largeAdapter.moviesList.add(Model(result.movies.revenueMutableLiveData as ArrayList<Movie>,"Revenue"))
+                    largeAdapter.notifyItemRangeChanged(0, 3)
                 }
             }
         }
@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
 
 
     private fun sendObject(movie: Movie) {

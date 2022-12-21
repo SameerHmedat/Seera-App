@@ -2,7 +2,6 @@ package com.example.seeragroup
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import com.example.seeragroup.Constants.IMAGE_BASE
 import com.example.seeragroup.models.Movie
 import com.example.seeragroup.utils.loadImage
