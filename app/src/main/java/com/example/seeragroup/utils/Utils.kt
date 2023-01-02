@@ -12,7 +12,7 @@ fun View.visible(isVisible: Boolean) {
 fun ImageView.loadImage(url: String) {
     Glide.with(this)
         .load(url)
-        .placeholder(R.drawable.comingsoon)
+        .placeholder(R.drawable.download)
         .into(this)
 }
 

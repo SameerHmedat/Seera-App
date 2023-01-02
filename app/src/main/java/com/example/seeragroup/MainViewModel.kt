@@ -5,42 +5,46 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.seeragroup.models.MoviesModel
+import com.example.seeragroup.models.Movie
+import com.example.seeragroup.models.Model
+import com.example.seeragroup.models.Section
 import com.example.seeragroup.services.MovieApiService
 import kotlinx.coroutines.*
 
 class MainViewModel : ViewModel() {
 
     val moviesLiveData = MutableLiveData<Result>()
+    val newMoviesLiveData = MutableLiveData<Result>()
 
-    var popularLiveData = MutableLiveData<Result>()
-    var topRatedLiveData = MutableLiveData<Result>()
-    var revenueLiveData = MutableLiveData<Result>()
-
-    var popularPage = 2
+    var popularPage = 1
     var loadingPopular = true
     var previousTotalPopular = 0
 
-    var topRatedPage = 2
+    var topRatedPage = 1
     var loadingTopRated = true
     var previousTotalTopRated = 0
 
-    var revenuePage = 2
+    var revenuePage = 1
     var loadingRevenue = true
     var previousTotalRevenue = 0
 
-    fun resetScrolling() {
+    fun updateScrollingValues(error: Boolean) {
         loadingPopular = true
-        previousTotalPopular = 0
-        popularPage = 2
         loadingTopRated = true
-        previousTotalTopRated = 0
-        topRatedPage = 2
         loadingRevenue = true
+        previousTotalPopular = 0
+        previousTotalTopRated = 0
         previousTotalRevenue = 0
-        revenuePage = 2
+        if (error) {
+            popularPage -= 1
+            topRatedPage -= 1
+            revenuePage -= 1
+        } else {
+            popularPage = 1
+            topRatedPage = 1
+            revenuePage = 1
+        }
     }
-
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         Log.d("Exception handled:", throwable.localizedMessage as String)
@@ -56,15 +60,13 @@ class MainViewModel : ViewModel() {
             moviesLiveData.postValue(Result.Loading)
 
             try {
-                val popularResponse = MovieApiService.getInstance().getMovies(sort_by = "popularity.desc", page = 1)
-                val topRatedResponse = MovieApiService.getInstance().getMovies(sort_by = "vote_average.desc", page = 1)
-                val revenueResponse = MovieApiService.getInstance().getMovies(sort_by = "revenue.desc", page = 1)
                 moviesLiveData.postValue(
                     Result.Success(
-                        MoviesModel(
-                            popularMutableLiveData = popularResponse.body()!!.movies,
-                            topRatedMutableLiveData = topRatedResponse.body()!!.movies,
-                            revenueMutableLiveData = revenueResponse.body()!!.movies
+                        Model(arrayListOf<Section>(
+                            Section("Popular", MovieApiService.getInstance().getMovies(sort_by = "popularity.desc", page = 1).body()!!.movies as ArrayList<Movie>),
+                            Section("Top Rated", MovieApiService.getInstance().getMovies(sort_by = "vote_average.desc", page = 1).body()!!.movies as ArrayList<Movie>),
+                            Section("Revenue",  MovieApiService.getInstance().getMovies(sort_by = "revenue.desc", page = 1).body()!!.movies as ArrayList<Movie>),
+                        )
                         )
                     )
                 )
@@ -72,7 +74,7 @@ class MainViewModel : ViewModel() {
                 moviesLiveData.postValue(
                     Result.Failure(
                         Throwable(
-                            "Error when request all Movies"
+                            e.message.toString()
                         )
                     )
                 )
@@ -80,19 +82,23 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun getNewPopularMovies(popularPage: Int) {
+    private fun getNewMovies(id: String, page: Int, sort_by: String) {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-            popularLiveData.postValue(Result.Loading)
+            newMoviesLiveData.postValue(Result.Loading)
             try {
-                val popularResponse = MovieApiService.getInstance().getMovies(sort_by = "popularity.desc", page = popularPage)
-                popularLiveData.postValue(
-                    Result.Success(MoviesModel(popularMutableLiveData = popularResponse.body()!!.movies))
+                val response =
+                    MovieApiService.getInstance().getMovies(sort_by = sort_by, page = page)
+                newMoviesLiveData.postValue(
+                    Result.Success(Model(sections = arrayListOf(
+                        Section(id, response.body()!!.movies as ArrayList<Movie>)
+                    )))
                 )
+
             } catch (ex: Exception) {
-                popularLiveData.postValue(
+                newMoviesLiveData.postValue(
                     Result.Failure(
                         Throwable(
-                            "Error when request Popular Movies"
+                            ex.message.toString()
                         )
                     )
                 )
@@ -100,42 +106,47 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun getNewTopRatedMovies(topRatedPage: Int) {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-            topRatedLiveData.postValue(Result.Loading)
-            try {
-                val topRatedResponse = MovieApiService.getInstance().getMovies(sort_by = "vote_average.desc", page = topRatedPage)
-                topRatedLiveData.postValue(
-                    Result.Success(MoviesModel(topRatedMutableLiveData = topRatedResponse.body()!!.movies))
-                )
-            } catch (ex: Exception) {
-                topRatedLiveData.postValue(
-                    Result.Failure(
-                        Throwable(
-                            "Error when request TopRated Movies"
-                        )
-                    )
-                )
-            }
-        }
-    }
+    fun scrolling(visibleItemCount: Int, totalItemCount: Int, firstVisibleItem: Int, id: String) {
 
-    fun getNewRevenueMovies(revenuePage: Int) {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-            revenueLiveData.postValue(Result.Loading)
-            try {
-                val revenueResponse = MovieApiService.getInstance().getMovies(sort_by = "revenue.desc", page = revenuePage)
-                revenueLiveData.postValue(
-                    Result.Success(MoviesModel(revenueMutableLiveData = revenueResponse.body()!!.movies))
-                )
-            } catch (ex: Exception) {
-                revenueLiveData.postValue(
-                    Result.Failure(
-                        Throwable(
-                            "Error when request Revenue Movies"
-                        )
-                    )
-                )
+        when (id) {
+            "Popular" -> {
+                if (loadingPopular) {
+                    if (totalItemCount > previousTotalPopular) {
+                        loadingPopular = false
+                        previousTotalPopular = totalItemCount
+                    }
+                }
+                if (!loadingPopular && (totalItemCount - visibleItemCount) <= (firstVisibleItem + 9)) {
+                    getNewMovies("Popular", ++popularPage, "popularity.desc")
+                    Log.d("popularSameer ", (popularPage).toString())
+                    loadingPopular = true
+                }
+            }
+            "Top Rated" -> {
+                if (loadingTopRated) {
+                    if (totalItemCount > previousTotalTopRated) {
+                        loadingTopRated = false
+                        previousTotalTopRated = totalItemCount
+                    }
+                }
+                if (!loadingTopRated && (totalItemCount - visibleItemCount) <= (firstVisibleItem + 9)) {
+                    getNewMovies("Top Rated", ++topRatedPage, "vote_average.desc")
+                    Log.d("TopRated ", (topRatedPage).toString())
+                    loadingTopRated = true
+                }
+            }
+            "Revenue" -> {
+                if (loadingRevenue) {
+                    if (totalItemCount > previousTotalRevenue) {
+                        loadingRevenue = false
+                        previousTotalRevenue = totalItemCount
+                    }
+                }
+                if (!loadingRevenue && (totalItemCount - visibleItemCount) <= (firstVisibleItem + 9)) {
+                    getNewMovies("Revenue", ++revenuePage, "revenue.desc")
+                    Log.d("Revenue ", (revenuePage).toString())
+                    loadingRevenue = true
+                }
             }
         }
     }

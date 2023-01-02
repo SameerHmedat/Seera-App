@@ -1,8 +1,23 @@
+buildscript {
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath "io.realm:realm-gradle-plugin:10.11.1"
+    }
+}
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android-extensions'
+    id 'org.jetbrains.kotlin.kapt'
+    id 'kotlin-kapt'
 }
+
+apply plugin: "realm-android"
 
 android {
     namespace 'com.example.seeragroup'

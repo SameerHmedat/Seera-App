@@ -1,29 +1,23 @@
 package com.example.seeragroup.models
 
 import com.google.gson.annotations.SerializedName
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
 
-data class Movie(
-    @SerializedName("id")
-    val id: String?,
-
-    @SerializedName("title")
-    val title: String?,
+open class Movie(
+    @PrimaryKey
+    var id: String="",
+    var title: String?=null,
+    var overview: String?=null,
+    var vote_count: String?=null,
+    var vote_average: String?=null,
 
     @SerializedName("poster_path")
-    val poster: String?,
+    var poster: String?=null,
 
     @SerializedName("release_date")
-    val release: String?,
-
-    @SerializedName("overview")
-    val overview: String?,
-
-    @SerializedName("vote_count")
-    val vote_count: String?,
-
-    @SerializedName("vote_average")
-    val vote_average: String?,
+    var release: String?=null,
 
     @SerializedName("original_language")
-    val language: String?,
-)
+    var language: String?=null,
+):RealmObject()

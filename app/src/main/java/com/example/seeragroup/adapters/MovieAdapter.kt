@@ -12,16 +12,16 @@ import com.example.seeragroup.utils.loadImage
 import kotlinx.android.synthetic.main.movie_item_row.view.*
 
 @Suppress("DEPRECATION")
-class MovieAdapter ( val movies:ArrayList<Movie>)
-    :RecyclerView.Adapter<MovieAdapter.MovieViewHolder>(){
+class MovieAdapter(val movies: ArrayList<Movie>) :
+    RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    var onItemClick: ((Movie) -> Unit)? = null
+    var onMovieClicked: ((Movie) -> Unit)? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val itemView=LayoutInflater.from(parent.context).inflate(
+        val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.movie_item_row,
-            parent,false)
+            parent, false)
         return MovieViewHolder(itemView)
     }
 
@@ -32,23 +32,28 @@ class MovieAdapter ( val movies:ArrayList<Movie>)
     override fun getItemCount(): Int {
         return movies.size
     }
-    @SuppressLint("NotifyDataSetChanged")
+
+    @SuppressLint("NotifyDataSetChanged", "SuspiciousIndentation")
     fun updateData(newMovies: List<Movie>) {
+        movies.clear()
         movies.addAll(newMovies)
         notifyDataSetChanged()
     }
 
-    inner class MovieViewHolder(view:View):RecyclerView.ViewHolder(view){
-        fun bindMovie(movie: Movie){
-            if(movie.poster==null){
+    inner class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        fun bindMovie(movie: Movie) {
+            if (movie.poster == null) {
                 itemView.img_movie.loadImage(R.drawable.comingsoon)
+            } else {
+                itemView.img_movie.loadImage(IMAGE_BASE + movie.poster)
             }
-            else{itemView.img_movie.loadImage(IMAGE_BASE+movie.poster)}
         }
+
         init {
             itemView.img_movie.setOnClickListener {
-                onItemClick?.invoke(movies[adapterPosition])
-            }}
+                onMovieClicked?.invoke(movies[adapterPosition])
+            }
+        }
     }
 
 }
